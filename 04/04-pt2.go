@@ -16,6 +16,10 @@ func check(e error) {
 
 type Passport map[string]string
 
+var hclre = regexp.MustCompile("^#[0-9a-f]{6}$")
+var eclre = regexp.MustCompile("^(amb|blu|brn|gry|grn|hzl|oth)$")
+var pidre = regexp.MustCompile("^[0-9]{9}$")
+
 func (p Passport) isValid() bool {
 	byr, err := strconv.Atoi(p["byr"])
 	if err != nil {
@@ -54,18 +58,15 @@ func (p Passport) isValid() bool {
 		return false
 	}
 
-	re := regexp.MustCompile("^#[0-9a-f]{6}$")
-	if !re.MatchString(p["hcl"]) {
+	if !hclre.MatchString(p["hcl"]) {
 		return false
 	}
 
-	re = regexp.MustCompile("^(amb|blu|brn|gry|grn|hzl|oth)$")
-	if !re.MatchString(p["ecl"]) {
+	if !eclre.MatchString(p["ecl"]) {
 		return false
 	}
 
-	re = regexp.MustCompile("^[0-9]{9}$")
-	if !re.MatchString(p["pid"]) {
+	if !pidre.MatchString(p["pid"]) {
 		return false
 	}
 	return true

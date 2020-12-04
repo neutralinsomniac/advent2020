@@ -45,8 +45,6 @@ func main() {
 
 	numValid := 0
 	for _, passport := range passports {
-		fmt.Println(passport)
-		fmt.Println("---")
 		if passport.isValid() {
 			numValid++
 		}
