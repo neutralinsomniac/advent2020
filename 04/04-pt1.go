@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"strings"
+	"time"
 )
 
 func check(e error) {
@@ -41,6 +42,7 @@ func initStateFromFile(filename string) []Passport {
 }
 
 func main() {
+	start := time.Now()
 	passports := initStateFromFile("input")
 
 	numValid := 0
@@ -50,4 +52,5 @@ func main() {
 		}
 	}
 	fmt.Println(numValid)
+	fmt.Println("time:", time.Since(start))
 }

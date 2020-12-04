@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"time"
 )
 
 func check(e error) {
@@ -43,6 +44,7 @@ func initStateFromFile(filename string) Universe {
 	return universe
 }
 func main() {
+	start := time.Now()
 	universe := initStateFromFile("input")
 
 	x := 0
@@ -56,4 +58,5 @@ func main() {
 		y += 1
 	}
 	fmt.Println(numTrees)
+	fmt.Println("time:", time.Since(start))
 }

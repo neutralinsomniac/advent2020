@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 )
 
 func main() {
+	start := time.Now()
 	file, err := os.Open("input")
 	if err != nil {
 		fmt.Println(err)
@@ -32,4 +34,5 @@ func main() {
 			}
 		}
 	}
+	fmt.Println("time:", time.Since(start))
 }

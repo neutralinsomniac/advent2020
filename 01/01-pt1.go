@@ -5,9 +5,11 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"time"
 )
 
 func main() {
+	start := time.Now()
 	file, err := os.Open("input")
 	if err != nil {
 		fmt.Println(err)
@@ -27,6 +29,8 @@ func main() {
 		for j := i + 1; j < len(arr); j++ {
 			if arr[i]+arr[j] == 2020 {
 				fmt.Println(arr[i] * arr[j])
+				fmt.Println("time:", time.Since(start))
+				return
 			}
 		}
 	}
