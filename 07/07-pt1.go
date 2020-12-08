@@ -3,10 +3,10 @@ package main
 import (
 	"bufio"
 	"fmt"
+	"github.com/golang-collections/go-datastructures/queue"
 	"os"
 	"strings"
 	"time"
-	"github.com/golang-collections/go-datastructures/queue"
 )
 
 func check(e error) {

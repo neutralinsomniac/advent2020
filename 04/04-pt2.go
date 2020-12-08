@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strconv"
 	"strings"
-	"regexp"
 	"time"
 )
 

@@ -49,7 +49,7 @@ func main() {
 
 	mult := 1
 	var slopes []Coord
-	slopes = append(slopes, Coord{1, 1}, Coord{3, 1}, Coord{5,1}, Coord{7,1}, Coord{1, 2})
+	slopes = append(slopes, Coord{1, 1}, Coord{3, 1}, Coord{5, 1}, Coord{7, 1}, Coord{1, 2})
 
 	for _, slope := range slopes {
 		x := 0

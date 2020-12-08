@@ -38,20 +38,20 @@ func main() {
 				goto Run
 			}
 		}
-		Run:
-			for {
-				ip := modifiedProgram.GetIp()
-				if visitedInstructions[ip] {
-					break
-				}
-				visitedInstructions[modifiedProgram.GetIp()] = true
-				modifiedProgram.Step()
+	Run:
+		for {
+			ip := modifiedProgram.GetIp()
+			if visitedInstructions[ip] {
+				break
 			}
+			visitedInstructions[modifiedProgram.GetIp()] = true
+			modifiedProgram.Step()
+		}
 
-			if modifiedProgram.GetHalted() {
-				fmt.Println(modifiedProgram.GetAcc())
-				fmt.Println("time:", time.Since(start))
-				return
-			}
+		if modifiedProgram.GetHalted() {
+			fmt.Println(modifiedProgram.GetAcc())
+			fmt.Println("time:", time.Since(start))
+			return
+		}
 	}
 }

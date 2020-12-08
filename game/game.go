@@ -24,11 +24,12 @@ const (
 )
 
 type Instruction struct {
-	opcode Opcode
+	opcode  Opcode
 	operand Operand
 }
 
 type AddressingMode int
+
 const (
 	Ind AddressingMode = 0
 	Imm                = 1
@@ -38,7 +39,7 @@ const (
 type Program struct {
 	text   []Instruction
 	memory []Instruction
-	ip int
+	ip     int
 	acc    int
 	bp     int
 	halted bool
@@ -136,7 +137,7 @@ func (p *Program) InitStateFromFile(filename string) {
 	// copy text section
 	p.text = make([]Instruction, len(stringArray))
 	for i := 0; i < len(stringArray); i++ {
-		if len(stringArray[i])== 0 || stringArray[i][0] == '\n' {
+		if len(stringArray[i]) == 0 || stringArray[i][0] == '\n' {
 			continue
 		}
 		var opcodeStr string
@@ -237,4 +238,3 @@ func (p *Program) Run() []int {
 
 	return p.output
 }
-
