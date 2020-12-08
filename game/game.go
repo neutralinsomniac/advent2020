@@ -97,10 +97,10 @@ func (p *Program) Reset() {
 	p.output = nil
 	p.reader = nil
 	p.halted = false
-	p.memory = make([]Instruction, len(p.text))
+	/*p.memory = make([]Instruction, len(p.text))
 	for i := range p.text {
 		p.memory[i] = p.text[i]
-	}
+	}*/
 }
 
 func opcodeFromString(opcodeStr string) Opcode {
@@ -188,12 +188,12 @@ func (p *Program) IncrementIp(amount int) {
 	p.ip += amount
 }
 
-func (p *Program) GetOpcode() Opcode {
-	return p.text[p.ip].opcode
+func (p *Program) GetOpcode(ip int) Opcode {
+	return p.text[ip].opcode
 }
 
-func (p *Program) GetOperand() Operand {
-	return p.text[p.ip].operand
+func (p *Program) GetOperand(ip int) Operand {
+	return p.text[ip].operand
 }
 
 func (p *Program) Step() {
@@ -203,17 +203,17 @@ func (p *Program) Step() {
 	if p.halted {
 		return
 	}
-	opcode := p.GetOpcode()
+	opcode := p.GetOpcode(p.ip)
 	switch opcode {
 	case Acc:
-		operand := p.GetOperand()
+		operand := p.GetOperand(p.ip)
 		if p.debug {
 			fmt.Printf("acc %d\n", int(operand))
 		}
 		p.acc += int(operand)
 		p.ip += 1
 	case Jmp:
-		operand := p.GetOperand()
+		operand := p.GetOperand(p.ip)
 		if p.debug {
 			fmt.Printf("jmp %d\n", int(operand))
 		}

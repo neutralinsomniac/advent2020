@@ -15,43 +15,51 @@ func check(e error) {
 func main() {
 	start := time.Now()
 	program := game.Program{}
-	modifiedProgram := game.Program{}
 
 	program.InitStateFromFile("input")
 
 	patchIndex := 0
 	for {
-		modifiedProgram.InitStateFromProgram(&program)
 		visitedInstructions := make(map[int]bool)
 
 		// find the first nop or jmp and patch it
-		for ; patchIndex < modifiedProgram.Len(); patchIndex++ {
-			opcode := modifiedProgram.GetOpcode()
+		for ; patchIndex < program.Len(); patchIndex++ {
+			opcode := program.GetOpcode(patchIndex)
 			switch opcode {
 			case game.Jmp:
-				modifiedProgram.PatchOpcode(patchIndex, game.Nop)
-				patchIndex++
+				program.PatchOpcode(patchIndex, game.Nop)
 				goto Run
 			case game.Nop:
-				modifiedProgram.PatchOpcode(patchIndex, game.Acc)
-				patchIndex++
+				program.PatchOpcode(patchIndex, game.Jmp)
 				goto Run
 			}
 		}
 	Run:
 		for {
-			ip := modifiedProgram.GetIp()
+			ip := program.GetIp()
 			if visitedInstructions[ip] {
 				break
 			}
-			visitedInstructions[modifiedProgram.GetIp()] = true
-			modifiedProgram.Step()
+			visitedInstructions[program.GetIp()] = true
+			program.Step()
 		}
 
-		if modifiedProgram.GetHalted() {
-			fmt.Println(modifiedProgram.GetAcc())
+		if program.GetHalted() {
+			fmt.Println(program.GetAcc())
 			fmt.Println("time:", time.Since(start))
 			return
 		}
+
+		// undo the previous patch
+		opcode := program.GetOpcode(patchIndex)
+		switch opcode {
+		case game.Jmp:
+			program.PatchOpcode(patchIndex, game.Nop)
+		case game.Nop:
+			program.PatchOpcode(patchIndex, game.Jmp)
+		}
+		program.Reset()
+		// inc patchIndex here to avoid repeating the same patch we just performed
+		patchIndex++
 	}
 }
