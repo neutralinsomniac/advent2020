@@ -95,8 +95,4 @@ func main() {
 
 	fmt.Println(math.Abs(float64(ship.pos.row)) + math.Abs(float64(ship.pos.column)))
 	fmt.Println("time:", time.Since(start))
-
-	start = time.Now()
-
-	fmt.Println("time:", time.Since(start))
 }

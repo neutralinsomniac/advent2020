@@ -94,9 +94,6 @@ func main() {
 		var direction rune
 		var amount int
 		fmt.Sscanf(scanner.Text(), "%c%d\n", &direction, &amount)
-		fmt.Println("ship:", ship.pos)
-		fmt.Println("waypoint:", ship.waypoint)
-		fmt.Printf("%c%d\n", direction, amount)
 		switch direction {
 		case 'N':
 			ship.waypoint = ship.waypoint.Add(DirectionToHeading[North].Mult(amount))
