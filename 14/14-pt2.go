@@ -15,10 +15,10 @@ func check(e error) {
 	}
 }
 
-type Memory map[int64]int
+type Memory map[string]int
 
-func GetAllAddresses(mask string, address string) []int64 {
-	addrs := make([]int64, 0)
+func GetAllAddresses(mask string, address string) []string {
+	addrs := make([]string, 0)
 
 	//count the number of X's
 	var floating []int // indices of X's
@@ -41,9 +41,7 @@ func GetAllAddresses(mask string, address string) []int64 {
 		for i := range numBinary {
 			addressSlice[floating[i]] = numBinary[i]
 		}
-		addr, err := strconv.ParseInt(string(addressSlice), 2, 64)
-		check(err)
-		addrs = append(addrs, addr)
+		addrs = append(addrs, string(addressSlice))
 	}
 
 	return addrs
