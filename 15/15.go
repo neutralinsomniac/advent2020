@@ -19,14 +19,16 @@ type Memory map[int][]int
 
 func (m Memory) Add(index int, value int) {
 	if arr, ok := m[index]; ok {
-		arr = append(arr, value)
-		if len(arr) > 2 {
-			arr = arr[1:]
+		if len(arr) == 2 {
+			arr[0] = arr[1]
+			arr[1] = value
+		} else if len(arr) == 1 {
+			arr = append(arr, value)
 		}
 		m[index] = arr
 	} else {
-		m[index] = make([]int, 1)
-		m[index][0] = value
+		m[index] = make([]int, 0, 2)
+		m[index] = append(m[index], value)
 	}
 }
 
