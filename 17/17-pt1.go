@@ -169,17 +169,18 @@ func calcNewState(grid Grid) (Grid, bool) {
 	var changed bool
 
 	// expand cells to consider
-	expandedGrid := copyGrid(grid)
-	for coord := range expandedGrid {
-		for _, adj := range adjacentCoords {
-			if _, ok := grid[coord.Add(adj)]; !ok {
-				expandedGrid[coord.Add(adj)] = Dead
+	for coord, cell := range grid {
+		if cell == Alive {
+			for _, adj := range adjacentCoords {
+				if _, ok := grid[coord.Add(adj)]; !ok {
+					grid[coord.Add(adj)] = Dead
+				}
 			}
 		}
 	}
 
-	for coord, cell := range expandedGrid {
-		numAlive := countAliveAdjacent(expandedGrid, coord)
+	for coord, cell := range grid {
+		numAlive := countAliveAdjacent(grid, coord)
 		switch cell {
 		case Alive:
 			if numAlive == 2 || numAlive == 3 {
