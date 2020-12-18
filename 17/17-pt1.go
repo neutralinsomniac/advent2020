@@ -35,8 +35,7 @@ const (
 )
 
 func (s Cell) String() string {
-	str, _ := CellToChar[s]
-	return string(str)
+	return string(CellToChar[s])
 }
 
 var CharToCell = map[rune]Cell{'.': Dead, '#': Alive}
@@ -148,7 +147,7 @@ func countAliveAdjacent(grid Grid, coord Coord) int {
 	alive := 0
 
 	for _, adj := range adjacentCoords {
-		if (grid)[coord.Add(adj)] == Alive {
+		if grid[coord.Add(adj)] == Alive {
 			alive++
 		}
 	}
