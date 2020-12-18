@@ -99,9 +99,8 @@ func copyGrid(old Grid) Grid {
 	return newGrid
 }
 
-func calcNewState(grid Grid) (Grid, bool) {
+func calcNewState(grid Grid) Grid {
 	newGrid := make(Grid, len(grid))
-	var changed bool
 
 	// expand cells to consider
 	for coord, cell := range grid {
@@ -129,7 +128,7 @@ func calcNewState(grid Grid) (Grid, bool) {
 			}
 		}
 	}
-	return newGrid, changed
+	return newGrid
 }
 
 func countAlive(grid Grid) int {
@@ -150,7 +149,7 @@ func main() {
 	grid := init
 
 	for i := 0; i < 6; i++ {
-		grid, _ = calcNewState(grid)
+		grid = calcNewState(grid)
 	}
 
 	fmt.Println(countAlive(grid))
